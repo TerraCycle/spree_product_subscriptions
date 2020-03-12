@@ -10,15 +10,13 @@ module Spree
       new_order = recreate_order
     end
 
-    def can_be_proccesed?
-      previous_order = orders.any? ? orders.last : parent_order
-      order_status_correct?(previous_order)
-    end
-
-    private
-
-    def order_status_correct?(order)
-      order.has_inbound_package? && order.inbound_packages_status_is?(label_status.label_status)
+    def add_variant_to_order(order)
+      Spree::Cart::AddItem.call(
+        order: order,
+        variant: variant,
+        quantity: 1
+      )
+      order.next
     end
   end
 end
