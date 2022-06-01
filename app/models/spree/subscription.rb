@@ -205,11 +205,14 @@ module Spree
       end
 
       def add_variant_to_order(order)
+        line_item = parent_order.line_items.find_by(variant_id: variant.id)
+
         Spree::Dependencies.cart_add_item_service.constantize.call(
           order: order,
           variant: variant,
-          quantity: 1
+          quantity: line_item.subscription.sub_type == 'Spree::Subscriptions::Period' ? line_item.quantity : 1
         )
+
         order.next
       end
 
