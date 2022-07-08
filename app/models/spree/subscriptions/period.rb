@@ -2,7 +2,7 @@ module Spree
   module Subscriptions
     class Period < ::Spree::Subscription
 
-      scope :with_appropriate_delivery_time, -> { where("next_occurrence_at <= :current_date", current_date: Time.current) }
+      scope :with_appropriate_delivery_time, -> { where("cast(next_occurrence_at as Date) <= :current_date", current_date: Date.current) }
       scope :eligible_for_subscription, -> { processable.with_appropriate_delivery_time }
 
       validate :next_occurrence_at_range, if: :next_occurrence_at
