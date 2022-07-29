@@ -103,7 +103,7 @@ module Spree
     end
 
     def billing_address_attributes
-      params.require(:subscriptions_label_status).permit(
+      (params.fetch(:subscriptions_label_status, params.fetch(:subscriptions_period, {}))).permit(
         :bill_address_id,
         bill_address_attributes: [
           :firstname, :lastname, :company, :address1, :address2, :city,
