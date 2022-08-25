@@ -28,6 +28,11 @@ module Spree
     def cancel
       respond_to do |format|
         if @subscription.cancel
+          if @subscription.self_served_program
+            @subscription.self_served_program.update!(closed_at: Time.zone.now)
+            @subscription.self_served_program.close!
+          end
+
           format.json { render json: {
               subscription_id: @subscription.id,
               flash: t(".success"),

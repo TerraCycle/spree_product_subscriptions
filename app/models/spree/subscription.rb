@@ -26,6 +26,7 @@ module Spree
     has_many :orders_subscriptions, class_name: "Spree::OrderSubscription", dependent: :destroy
     has_many :orders, through: :orders_subscriptions
     has_many :complete_orders, -> { complete }, through: :orders_subscriptions, source: :order
+    has_one :self_served_program
 
     self.whitelisted_ransackable_associations = %w( parent_order )
     self.inheritance_column = :sub_type
