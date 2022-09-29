@@ -117,10 +117,10 @@ module Spree
         :quantity, :next_occurrence_at, :subscription_frequency_id,
         :subscription_label_status_id, :variant_id, :prior_notification_days_gap,
         ship_address_attributes: [
-          :firstname, :lastname, :address1, :address2, :city, :zipcode, :country_id, :state_id, :phone
+          :firstname, :lastname, :address1, :address2, :city, :zipcode, :country_id, :state_id, :phone, :id
         ],
         bill_address_attributes: [
-          :firstname, :lastname, :address1, :address2, :city, :zipcode, :country_id, :state_id, :phone
+          :firstname, :lastname, :address1, :address2, :city, :zipcode, :country_id, :state_id, :phone, :id
         ]
       )
     end
