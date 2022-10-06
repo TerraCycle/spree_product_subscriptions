@@ -14,7 +14,7 @@ module Spree
     def update
       if @subscription.update(subscription_attributes)
         respond_to do |format|
-          format.html { redirect_to edit_subscription_path(@subscription), success: t('.success') }
+          format.html { redirect_to spree.spree.edit_subscription_path(@subscription), success: t('.success') }
           format.json { render json: { subscription: { price: @subscription.price, id: @subscription.id } }, status: 200 }
         end
       else
@@ -34,13 +34,13 @@ module Spree
               method: Spree::Subscription::ACTION_REPRESENTATIONS[:cancel].upcase
             }, status: 200
           }
-          format.html { redirect_to edit_subscription_path(@subscription), success: t(".success") }
+          format.html { redirect_to spree.edit_subscription_path(@subscription), success: t(".success") }
         else
           format.json { render json: {
               flash: t(".error")
             }, status: 422
           }
-          format.html { redirect_to edit_subscription_path(@subscription), error: t(".error") }
+          format.html { redirect_to spree.edit_subscription_path(@subscription), error: t(".error") }
         end
       end
     end
@@ -49,7 +49,7 @@ module Spree
       if @subscription.pause
         render json: {
           flash: t('.success'),
-          url: unpause_subscription_path(@subscription),
+          url: spree.unpause_subscription_path(@subscription),
           button_text: Spree::Subscription::ACTION_REPRESENTATIONS[:unpause],
           confirmation: Spree.t("subscriptions.confirm.activate")
         }, status: 200
@@ -66,7 +66,7 @@ module Spree
       if @subscription.unpause
         render json: {
           flash: t('.success', next_occurrence_at: next_occurrence_at),
-          url: pause_subscription_path(@subscription),
+          url: spree.pause_subscription_path(@subscription),
           button_text: Spree::Subscription::ACTION_REPRESENTATIONS[:pause],
           next_occurrence_at: next_occurrence_at,
           confirmation: Spree.t("subscriptions.confirm.pause")
@@ -84,7 +84,7 @@ module Spree
     def update_payment_details
       if @subscription.update(new_source_attributes)
         respond_to do |format|
-          format.html { redirect_to edit_subscription_path(@subscription), success: t('.success') }
+          format.html { redirect_to spree.edit_subscription_path(@subscription), success: t('.success') }
         end
       else
         respond_to do |format|
@@ -161,7 +161,7 @@ module Spree
       @subscription = Spree::Subscription.active.find_by(id: params[:id])
       unless @subscription
         respond_to do |format|
-          format.html { redirect_to account_path, error: Spree.t('subscriptions.alert.missing') }
+          format.html { redirect_to spree.account_path, error: Spree.t('subscriptions.alert.missing') }
           format.json { render json: { flash: Spree.t("subscriptions.alert.missing") }, status: 422 }
         end
       end
@@ -170,7 +170,7 @@ module Spree
     def ensure_not_cancelled
       if @subscription.not_changeable?
         respond_to do |format|
-          format.html { redirect_back fallback_location: root_path, error: Spree.t("subscriptions.error.not_changeable") }
+          format.html { redirect_back fallback_location: spree.root_path, error: Spree.t("subscriptions.error.not_changeable") }
           format.json { render json: { flash: Spree.t("subscriptions.error.not_changeable") }, status: 422 }
         end
       end

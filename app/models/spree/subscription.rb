@@ -56,7 +56,7 @@ module Spree
     define_model_callbacks :process, only: [:after]
     after_process :notify_reoccurrence
 
-    define_model_callbacks :cancel, only: [:before]
+    define_model_callbacks :cancel, only: [:before, :after]
     before_cancel :set_cancellation_reason, if: :can_set_cancellation_reason?
 
     before_create :set_type
