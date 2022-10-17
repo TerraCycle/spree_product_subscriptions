@@ -14,7 +14,7 @@ module Spree
     def update
       if @subscription.update(subscription_attributes)
         respond_to do |format|
-          format.html { redirect_to spree.spree.edit_subscription_path(@subscription), success: t('.success') }
+          format.html { redirect_to spree.edit_subscription_path(@subscription), success: t('.success') }
           format.json { render json: { subscription: { price: @subscription.price, id: @subscription.id } }, status: 200 }
         end
       else
