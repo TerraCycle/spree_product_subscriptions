@@ -17,7 +17,7 @@ module SpreeProductSubscriptions
     def enable_subscriptions
       payment_source = if payments.any?
                          payments.first.source
-                       else
+                       elsif merge_order
                          merge_order.payments.last.source
                        end
       subscriptions.each do |subscription|
