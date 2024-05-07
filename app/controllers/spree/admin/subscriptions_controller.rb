@@ -14,7 +14,7 @@ module Spree
 
       def cancel
         if @subscription.cancel_with_reason(cancel_subscription_attributes)
-          redirect_to collection_url, success: t('.success')
+          redirect_to spree.admin_subscriptions_path, success: t('.success')
         else
           render :cancellation
         end
@@ -68,7 +68,7 @@ module Spree
 
         def ensure_not_cancelled
           if @subscription.cancelled?
-            redirect_to collection_url, error: Spree.t("admin.subscriptions.error_on_already_cancelled")
+            redirect_to spree.admin_subscriptions_path, error: Spree.t("admin.subscriptions.error_on_already_cancelled")
           end
         end
 
